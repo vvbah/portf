@@ -32,7 +32,7 @@ if pagina_actual == "Sobre Mí":
         Hola! Soy Valentina Vergara, egresada de Ingeniería Comercial con Máster en Business Analytics de la Universidad 
     Adolfo Ibáñez. He desempeñado mi práctica intermedia en el área de marketing digital del emprendimiento chileno 
     Rew y, además, realicé mi práctica profesional en el área comercial/producto de Maxxa, una fintech chilena, en 
-    donde como data scientist pude participar en el desarrollo de un modelo de *machine learning* para predecir fuga 
+    donde pude potenciar los conocimientos adquiridos en el Máster participando en el desarrollo de un modelo de *machine learning* para predecir fuga 
     de clientes mensuales, automatización de KPIs informados vía mail y en transformación y carga de datos. Soy 
     fiel creedora de que el análisis de datos y la creación de modelos predictivos/clasificadores pueden aportar 
     gran valor a las empresas ya que ayudan a tomar mejores decisiones para la firma, además de otros grandes beneficios. 
