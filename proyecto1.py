@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
-import joblib
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import MinMaxScaler
 
 
 ####################################################################################################################
@@ -40,6 +42,50 @@ def main():
 
     st.subheader("Aplicación: ")
 
+    data = pd.read_csv('propiedades_Chile_venta.csv')
+    data.drop(data[data.precio>30000].index,inplace=True)
+    data.drop(data[data.precio<1000].index,inplace=True)
+    data.drop(data[data.dormitorios>10].index,inplace=True)
+    data.drop(data[data.estacionamientos>10].index,inplace=True)
+    data.drop(data[data.estacionamientos<0].index,inplace=True)
+    data.drop(data[data.superficie_total>2000].index,inplace=True)
+    data.drop(data[data.superficie_total<30].index,inplace=True)
+    data.drop(data[data.superficie_util>700].index,inplace=True)
+    data.drop(data[data.superficie_util<30].index,inplace=True)
+
+
+
+    data1_casa=data[data['tipo']=='Casa']
+    data1_dpto=data[data['tipo']=='Departamento']
+
+    data1_v2_casa=data1_casa.drop(['superficie_total','estacionamientos','tipo'],axis=1)
+    data1_v2_dpto=data1_dpto.drop(['superficie_total','estacionamientos','tipo'],axis=1)
+
+
+    scaler=MinMaxScaler()
+    data1_v2_casa_mm=scaler.fit_transform(data1_v2_casa)
+    data1_v2_casa_mm=pd.DataFrame(data1_v2_casa_mm,columns=['precio', 'superficie_util', 'dormitorios', 'banos'])
+    data1_v2_dpto_mm=scaler.fit_transform(data1_v2_dpto)
+    data1_v2_dpto_mm=pd.DataFrame(data1_v2_dpto_mm,columns=['precio', 'superficie_util', 'dormitorios', 'banos'])
+
+
+    X=data1_v2_casa_mm.drop(['precio'],axis=1)
+    y=data1_v2_casa_mm['precio']
+    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=42)
+
+    lr_casa=LinearRegression()
+    lr_casa.fit(X_train,y_train)
+
+
+    X=data1_v2_dpto_mm.drop(['precio'],axis=1)
+    y=data1_v2_dpto_mm['precio']
+    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=42)
+
+
+    lr_dpto=LinearRegression()
+    lr_dpto.fit(X_train,y_train)
+
+
     ### BOTON TIPO PROP ###
 
     tipo_propiedad = st.selectbox("Tipo de propiedad", ["Casa", "Departamento"])
@@ -57,10 +103,10 @@ def main():
     if st.button("Predecir Precio"):
         if tipo_propiedad == "Casa":
             # Cargar el modelo de casa
-            model = joblib.load('reg_lineal_casa.joblib')
+            model = lr_casa
         else:
             # Cargar el modelo de departamento
-            model = joblib.load('reg_lineal_dpto.joblib')
+            model = lr_dpto
 
         precio_predicho = model.predict([[superficie_util,dormitorios, num_banos]])[0]
 
