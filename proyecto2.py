@@ -160,8 +160,8 @@ viviendas=pd.read_csv('viviendas.csv')
 censo=pd.read_csv('censo17.csv')
 
 dic('P12',dic_P12)
-df=gpd.read_file("Zones Chile.shp")
-metro=gpd.read_file("Metro.shp")
+df=gpd.read_file("df.geojson")
+metro=gpd.read_file("metro.geojson")
 
 
 eecc=df[df['cod_comuna']=='13106']
