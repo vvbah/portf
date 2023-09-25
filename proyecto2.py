@@ -160,21 +160,10 @@ viviendas=pd.read_csv('viviendas.csv')
 censo=pd.read_csv('censo17.csv')
 
 dic('P12',dic_P12)
-df=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Zones Chile.shp")
-ciclovia=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Ciclovias.shp")
-colegios=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Colegios.shp")
-ed_inicial=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Ed_Inicial.shp")
-metro=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Metro.shp")
-salud=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Salud.shp")
-parques=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Parques.shp")
-plazas=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Plazas.shp")
+df=gpd.read_file("Zones Chile.shp")
+metro=gpd.read_file("Metro.shp")
 
-ciclovia=ciclovia[ciclovia['CUT_SIEDU']==13106]
-colegios=colegios[colegios['COD_COM_RB']==13106]
-ed_inicial=ed_inicial[ed_inicial['COD_COMUN']==13106.0]
-salud=salud[salud['COMUNA_']=='Estación Central']
-parques=parques[parques['COMUNA']=='ESTACIÓN CENTRAL']
-plazas=plazas[plazas['CUT']==13106]
+
 eecc=df[df['cod_comuna']=='13106']
 
 estaciones=['ESTACION CENTRAL','ECUADOR','LAS REJAS','PAJARITOS','PILA DEL GANSO']
