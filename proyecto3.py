@@ -1,18 +1,5 @@
 import streamlit as st
 import pandas as pd
-import spacy
-import es_core_news_sm
-from sklearn.feature_extraction.text import TfidfVectorizer
-from scipy.spatial.distance import cosine
-from spacy.lang.es.stop_words import STOP_WORDS
-from string import punctuation
-import numpy as np
-import regex
-import joblib
-from pandasql import sqldf
-
-pysqldf = lambda q: sqldf(q, globals())
-nlp= spacy.load("es_core_news_sm")
 
 
 def main():
@@ -118,7 +105,7 @@ def main():
     discursos:
     """)
 
-    df = pd.read_csv('textos.csv')
+    df = pd.read_csv('textos.csv') #data con modelo entrenado anteriormente
 
 
 
