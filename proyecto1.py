@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import MinMaxScaler
 
 
 ####################################################################################################################
@@ -62,23 +61,16 @@ def main():
     data1_v2_dpto=data1_dpto.drop(['superficie_total','estacionamientos','tipo'],axis=1)
 
 
-    scaler=MinMaxScaler()
-    data1_v2_casa_mm=scaler.fit_transform(data1_v2_casa)
-    data1_v2_casa_mm=pd.DataFrame(data1_v2_casa_mm,columns=['precio', 'superficie_util', 'dormitorios', 'banos'])
-    data1_v2_dpto_mm=scaler.fit_transform(data1_v2_dpto)
-    data1_v2_dpto_mm=pd.DataFrame(data1_v2_dpto_mm,columns=['precio', 'superficie_util', 'dormitorios', 'banos'])
-
-
-    X=data1_v2_casa_mm.drop(['precio'],axis=1)
-    y=data1_v2_casa_mm['precio']
+    X=data1_v2_casa.drop(['precio'],axis=1)
+    y=data1_v2_casa['precio']
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=42)
 
     lr_casa=LinearRegression()
     lr_casa.fit(X_train,y_train)
 
 
-    X=data1_v2_dpto_mm.drop(['precio'],axis=1)
-    y=data1_v2_dpto_mm['precio']
+    X=data1_v2_dpto.drop(['precio'],axis=1)
+    y=data1_v2_dpto['precio']
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=42)
 
 
