@@ -203,7 +203,7 @@ ptje_nacidos = (
     .mean()
     .apply(lambda x: round(x * 100, 2)) 
     .reset_index())
-ptje_nacidos['dummy']=ptje_nacidos['nacidos'].apply(lambda x: '1' if x >= 50.0 else '0')
+ptje_nacidos['dummy']=ptje_nacidos['nacidos'].apply(lambda x: '+50% nacidos' if x >= 50.0 else '<50% nacidos')
 ptje_nacidos=gpd.GeoDataFrame(pd.merge(eecc_censo,ptje_nacidos,on='ZONA'))
 
 censo_map2=censo_map.copy()
@@ -336,9 +336,6 @@ def main():
     </div>""", unsafe_allow_html=True)
 
         fig, ax = plt.subplots(figsize=(9, 9))
-
-        var_dic={'0':'<50% Nacidos','1':'+50% Nacidos'}
-        ptje_nacidos['dummy']=ptje_nacidos['dummy'].map(var_dic)
 
         ptje_nacidos.plot(ax=ax,column='dummy',legend=True,alpha=0.5,cmap='tab20c')
         eecc.plot(ax=ax,edgecolor='black', facecolor='none',alpha=0.4)
