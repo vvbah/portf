@@ -65,78 +65,11 @@ dic_P13 = {
     3:'Nunca asistió'
 }
 
-dic_P14 = {
-    0:'0',
-    98:'No aplica',
-    99:'Missing',
-    1:'1°',
-    2:'2°',
-    3:'3°',
-    4:'4°',
-    5:'5°',
-    6:'6°',
-    7:'7°',
-    8:'8°'
-}
-
-dic_P15 = {
-    1:'Sala cuna o jardín infantil',
-    98:'No aplica',
-    99:'Missing',
-    2:'Prekínder',
-    3:'Kínder',
-    4:'Especial o diferencial',
-    5:'Educación básica',
-    6:'Primaria o preparatorio (sistema antiguo)',
-    7:'Científico-humanista',
-    8:'Técnica profesional',
-    9:'Humanidades (sistema antiguo)',
-    10:'Técnica comercial, industrial/normalista (sistema antiguo)',
-    11:'Técnico superior (1-3 años)',
-    12:'Profesional (4 o más años)',
-    13:'Magíster',
-    14:'Doctorado'
-}
-
-dic_P15A = {
-    1:'Si',
-    2:'No',
-    98:'No Aplica',
-    99:'Missing'
-}
-
 dic_P16 = {
     1:'Si',
     2:'No',
     98:'No Aplica',
     99:'Missing'
-}
-
-dic_P18 = {
-    'A':'Agricultura, ganadería, silvicultura y pesca',
-    '98':'No aplica',
-    '99':'Missing',
-    'B':'Explotación de minas y canteras',
-    'C':'Industrias manufactureras',
-    'D':'Suministro de electricidad, gas, vapor y aire acondicionado',
-    'E':'Suministro de agua; evacuación de aguas residuales, gestión de desechos y descontaminación',
-    'F':'Construcción',
-    'G':'Comercio al por mayor y al por menor; reparación de vehículos automotores y motocicletas',
-    'H':'Transporte y almacenamiento',
-    'I':'Actividades de alojamiento y de servicios de comidas',
-    'J':'Información y comunicaciones',
-    'K':'Actividades financieras y de seguros',
-    'L':'Actividades inmobiliarias',
-    'M':'Actividades profesionales, científicas y técnicas',
-    'N':'Actividades de servicios administrativos y de apoyo',
-    'O':'Administración pública y defensa; planes de seguridad social de afiliación obligatoria',
-    'P':'Enseñanza',
-    'Q':'Actividades de atención de la salud humana y de asistencia social',
-    'R':'Actividades artísticas, de entretenimiento y recreativas',
-    'S':'Otras actividades de servicios',
-    'T':'Actividades de los hogares como empleadores; actividades no diferenciadas de los hogares como productores de bienes y servicios para uso propio',
-    'U':'Actividades de organizaciones y órganos extraterritoriales',
-    'Z':'Rama no declarada'
 }
 
 dic_P12={
@@ -160,27 +93,19 @@ viviendas=pd.read_csv('viviendas.csv')
 censo=pd.read_csv('censo17.csv')
 
 dic('P12',dic_P12)
+
 df=gpd.read_file("df.geojson")
 metro=gpd.read_file("metro.geojson")
-
-
 eecc=df[df['cod_comuna']=='13106']
 
 estaciones=['ESTACION CENTRAL','ECUADOR','LAS REJAS','PAJARITOS','PILA DEL GANSO']
 metro1=metro[metro['nombre'].isin(estaciones)]
-
 eecc_censo=eecc.drop(['market','nom_comuna', 'cod_comuna', 'poblacion',
        'metros2'],axis=1)
 eecc_censo=eecc_censo.rename(columns={'geocodigo':'ZONA'})
 censo['ZONA']=censo['ZONA'].astype(str)
 
 censo_map=pd.merge(censo,eecc_censo,on='ZONA')
-censo_map['P15']=censo_map['P15'].map(dic_P15)
-censo_map['P13']=censo_map['P13'].map(dic_P13)
-censo_map['P15A']=censo_map['P15A'].map(dic_P15A)
-censo_map['P18']=censo_map['P18'].map(dic_P18)
-
-
 censo_map['Universitarios'] = censo_map['ESCOLARIDAD'].apply(lambda x: 1 if x > 12 else 0)
 
 censo_map1=censo_map.copy()
@@ -377,15 +302,13 @@ def main():
     vivir en el centro de la ciudad para tener mejor conectividad y acceso a comercio, casas de estudio, entre otros.
     </div>""", unsafe_allow_html=True)
 
-
-            dic('P07',dic_P07)
             
             q="""
             SELECT P07, 
             ZONA,
             COUNT(P07) AS cant_jef
             FROM censo
-            WHERE P07 IN ('Jefe/a de hogar') 
+            WHERE P07 IN (1) 
             AND ESCOLARIDAD > 12
             GROUP BY P07,ZONA
             ORDER BY cant_jef DESC
