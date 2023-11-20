@@ -29,7 +29,7 @@ if pagina_actual == "Sobre Mí":
 
     st.header('Sobre mi:')
     st.write("""
-        Hola! Soy Valentina Vergara, egresada de Ingeniería Comercial con Máster en Business Analytics de la Universidad 
+        Hola! Soy Valentina Vergara, Ingeniera Comercial con Máster en Business Analytics de la Universidad 
     Adolfo Ibáñez. He desempeñado mi práctica intermedia en el área de marketing digital del emprendimiento chileno 
     Rew y, además, realicé mi práctica profesional en el área comercial/producto de Maxxa, una fintech chilena, en 
     donde pude potenciar los conocimientos adquiridos en el Máster participando en el desarrollo de un modelo de *machine learning* para predecir fuga 
