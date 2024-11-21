@@ -12,6 +12,14 @@ import os
 
 pysqldf = lambda q: sqldf(q, globals())
 
+# Obtiene la ruta absoluta del directorio donde está el script principal
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Construye la ruta al archivo de manera relativa
+geojson_path = os.path.join(BASE_DIR, 'permisos.geojson')
+
+# Usa la ruta relativa
+gdf = gpd.read_file(geojson_path)
 
 ####################################################################################################################
 ######################################## PROYECTO 2 ################################################################
@@ -157,13 +165,13 @@ dic_P12={
 
 ############################ BASES: ############################################################################
     
-prop=pd.read_csv('prop.csv')
+prop=pd.read_csv("prop2.csv")
 viviendas=pd.read_csv('viviendas.csv')
 censo=pd.read_csv('censo17.csv')
 
 dic('P12',dic_P12)
-df=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Zones Chile.shp")
-metro=gpd.read_file("C:\\Users\\vverg\\Desktop\\portafolio_vale\\Untitled Folder\\Metro.shp")
+df=gpd.read_file(r"C:\Users\vverg\Desktop\portafolio_vale\Untitled Folder\Zones Chile.shp")
+metro=gpd.read_file(r"C:\Users\vverg\Desktop\portafolio_vale\Untitled Folder\Metro.shp")
 
 
 eecc=df[df['cod_comuna']=='13106']
@@ -198,7 +206,7 @@ porcentaje_universitarios['pctj_univ']=porcentaje_universitarios['Universitarios
 ptje_univ_map=gpd.GeoDataFrame(pd.merge(eecc_censo,porcentaje_universitarios,on='ZONA'))
 
 censo_com=censo_map[(censo_map['P12']=='En esta comuna') | (censo_map['P12']=='En otra comuna') ]
-censo_com['nacidos']=censo_map['P12'].apply(lambda x: 1 if x=='En esta comuna' else 0)
+censo_com.loc[:, 'nacidos']=censo_map['P12'].apply(lambda x: 1 if x=='En esta comuna' else 0)
 
 ptje_nacidos = (
     censo_com.groupby('ZONA')['nacidos']
