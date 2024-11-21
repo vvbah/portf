@@ -166,7 +166,7 @@ censo=pd.read_csv('censo17.csv')
 
 dic('P12',dic_P12)
 df=gpd.read_file(os.path.join(current_dir, 'Untitled Folder', 'Zones Chile.shp'))
-metro=gpd.read_file(os.path.join(current_dir, 'Untitled Folder', 'Metro.shp')
+metro=gpd.read_file(os.path.join(current_dir, 'Untitled Folder', 'Metro.shp'))
 
 
 eecc=df[df['cod_comuna']=='13106']
