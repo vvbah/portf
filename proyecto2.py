@@ -9,7 +9,6 @@ from shapely.geometry import Point
 from pandasql import sqldf
 import os
 
-os.chdir(r"C:\Users\vverg\Desktop\portafolio_vale")
 
 pysqldf = lambda q: sqldf(q, globals())
 

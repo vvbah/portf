@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 
-os.chdir(r"C:\Users\vverg\Desktop\portafolio_vale")
+
 
 def main():
     st.title('Modelo para Comparar Similitud entre Textos')

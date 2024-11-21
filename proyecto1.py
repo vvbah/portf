@@ -6,7 +6,6 @@ from sklearn.preprocessing import MinMaxScaler
 import joblib
 import os
 
-os.chdir(r"C:\Users\vverg\Desktop\portafolio_vale")
 
 ####################################################################################################################
 ######################################## PROYECTO 1 ################################################################
