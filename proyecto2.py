@@ -14,7 +14,7 @@ pysqldf = lambda q: sqldf(q, globals())
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 geojson_path = os.path.join(BASE_DIR, 'permisos.geojson')
-gdf = gpd.read_file(geojson_path)
+gdf_permisos = gpd.read_file(geojson_path)
 
 ####################################################################################################################
 ######################################## PROYECTO 2 ################################################################
