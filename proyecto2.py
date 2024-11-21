@@ -6,7 +6,7 @@ import geopandas as gpd
 import contextily as cx
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from shapely.geometry import Point
-from pandasql import sqldf
+from sqldf import sqldf
 import os
 
 
