@@ -2,7 +2,11 @@ import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import MinMaxScaler
+import joblib
+import os
 
+os.chdir(r"C:\Users\vverg\Desktop\portafolio_vale")
 
 ####################################################################################################################
 ######################################## PROYECTO 1 ################################################################
@@ -13,71 +17,34 @@ from sklearn.linear_model import LinearRegression
 ### TITULO ###
 def main():
 
-    st.title("Predicción de Precio de Propiedades")
+    st.title("Predicción con Machine Learning")
 
     ### INTRODUCCION: ###
 
     st.write("""
-    El aprendizaje automático es un campo que ha llegado a revolucionar diferentes industrias en los negocios ya que 
-    se pueden realizar predicciones o clasificaciones a partir de datos históricos que ayudan a la toma de decisiones. 
-    Un rubro en dónde se ha visto gran uso de inteligencia artificial es en Marketing, pues empresas de comercio 
-    *(como retail por ejemplo)* suelen guardar la información de compra de los clientes para después crear estrategias 
-    personalizadas a ellos y fomentar su fidelización a la empresa, un clásico ejemplo son los descuentos que se 
-    imprimen con la boleta en los supermercados luego de ingresar el Rut de comprador frecuente, generalmente estos 
-    tienen relación con el historial de compras.  """)
-
+    El aprendizaje automático es un campo que ha transformado diversas industrias al permitir realizar predicciones o clasificaciones a 
+    partir de datos históricos, lo cual facilita la toma de decisiones estratégicas. Un sector donde la inteligencia artificial ha cobrado 
+    gran relevancia es el marketing. Las empresas, especialmente en el sector retail, suelen almacenar la información de compra de los 
+    clientes para diseñar estrategias personalizadas que fomenten su fidelización. Un ejemplo clásico son los descuentos impresos en las 
+    boletas de compra de supermercados, las cuales se generan después de ingresar el RUT de un comprador frecuente, generalmente basados 
+    en su historial de compras, entre otros ejemplos.  """)
+    
+    st.header('Predicción Precio Propiedades Santiago, Chile')
 
     st.markdown("""
 
-    La siguiente aplicación tienen como objetivo predecir el valor en UF de las propiedades en Santiago de Chile. 
-    El modelo fue entrenado con 20.000 datos del año 2022 y se tomaron las 3 variables con mayor correlación al precio: 
-    Superficie útil, número de dormitorios y número de baños. Con este, se puede tener una idea del mercado inmobiliario 
-    en la capital, pues permite conocer los precios aproximados ofrecidos en el mercado. También, sirve para quienes desean 
-    comprar una propiedad en el corto plazo y tener un valor aproximado a pagar por las características de la vivienda. 
-    Es importante destacar que este es un modelo en versión simplificada, existen otras variables que también pueden 
-    influir en el modelo como la distancia al metro, ubicación, comercios cerca, entre otros.
+    La siguiente aplicación tiene como objetivo predecir el valor en UF de las propiedades en Santiago de Chile. El modelo fue entrenado 
+                con 20.000 registros del año 2022, considerando las tres variables con mayor correlación con el precio: superficie útil, 
+                número de dormitorios y número de baños. Este modelo proporciona una estimación de los precios en el mercado inmobiliario 
+                de la capital, permitiendo a los interesados obtener una aproximación de lo que podrían pagar por una propiedad según sus 
+                características. Cabe destacar que este es un modelo simplificado y existen otras variables que también pueden influir en 
+                el precio, como la proximidad al metro, la ubicación, la cercanía a comercios, entre otras.
     """)
 
 
     st.subheader("Aplicación: ")
 
-    data = pd.read_csv('propiedades_Chile_venta.csv')
-    data.drop(data[data.precio>30000].index,inplace=True)
-    data.drop(data[data.precio<1000].index,inplace=True)
-    data.drop(data[data.dormitorios>10].index,inplace=True)
-    data.drop(data[data.estacionamientos>10].index,inplace=True)
-    data.drop(data[data.estacionamientos<0].index,inplace=True)
-    data.drop(data[data.superficie_total>2000].index,inplace=True)
-    data.drop(data[data.superficie_total<30].index,inplace=True)
-    data.drop(data[data.superficie_util>700].index,inplace=True)
-    data.drop(data[data.superficie_util<30].index,inplace=True)
-
-
-
-    data1_casa=data[data['tipo']=='Casa']
-    data1_dpto=data[data['tipo']=='Departamento']
-
-    data1_v2_casa=data1_casa.drop(['superficie_total','estacionamientos','tipo'],axis=1)
-    data1_v2_dpto=data1_dpto.drop(['superficie_total','estacionamientos','tipo'],axis=1)
-
-
-    X=data1_v2_casa.drop(['precio'],axis=1)
-    y=data1_v2_casa['precio']
-    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=42)
-
-    lr_casa=LinearRegression()
-    lr_casa.fit(X_train,y_train)
-
-
-    X=data1_v2_dpto.drop(['precio'],axis=1)
-    y=data1_v2_dpto['precio']
-    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=42)
-
-
-    lr_dpto=LinearRegression()
-    lr_dpto.fit(X_train,y_train)
-
-
+   
     ### BOTON TIPO PROP ###
 
     tipo_propiedad = st.selectbox("Tipo de propiedad", ["Casa", "Departamento"])
@@ -95,10 +62,10 @@ def main():
     if st.button("Predecir Precio"):
         if tipo_propiedad == "Casa":
             # Cargar el modelo de casa
-            model = lr_casa
+            model = joblib.load('reg_lineal_casa.joblib')
         else:
             # Cargar el modelo de departamento
-            model = lr_dpto
+            model = joblib.load('reg_lineal_depto.joblib')
 
         precio_predicho = model.predict([[superficie_util,dormitorios, num_banos]])[0]
 

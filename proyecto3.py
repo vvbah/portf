@@ -1,39 +1,41 @@
 import streamlit as st
 import pandas as pd
+import os
 
+os.chdir(r"C:\Users\vverg\Desktop\portafolio_vale")
 
 def main():
     st.title('Modelo para Comparar Similitud entre Textos')
 
     st.write("""
-    Hoy en día, los clientes suelen entregar su opinión luego de una compra e-commerce, también tienden a opinar en redes 
-    sociales sobre algún producto o servicio, además, pueden enviar mails a la empresa respecto a un tema específico, 
-    entre otros. Desde el punto de la empresa, toda esta información puede entregar *insights* importantes para apoyar la 
-    toma de decisiones en las empresas y mejorar su producto/servicio. Por ejemplo, si una organización recibe 1000 
-    correos diarios de clientes con su nivel de satisfacción es muy demoroso para un trabajador revisar cada uno de 
-    y clasificarlos, pero si esta tarea se realiza con un computador de manera automática, se puede reducir el tiempo 
-    y recursos humanos, agregando valor a la empresa porque cumplir el objetivo en poco tiempo *(incluso un par de minutos)* 
-    permite tomar decisiones estratégicas rápidas en la firma respecto a los resultados.  
+    Hoy en día, los clientes suelen compartir su opinión tras comprar por el canal e-commerce, comentan sobre algún producto o servicio en redes 
+    sociales , además, o incluso enviar mails a la empresa respecto a un tema específico, 
+    entre otros. Para las empresas, toda esta información puede ofrecer *insights* valiosos que apoyen la 
+    toma de decisiones y mejoren sus productos o servicios. Por ejemplo, si una organización recibe 1000 
+    correos diarios de clientes expresando su nivel de satisfacción, sería muy lento y costoso para un trabajador revisar cada uno de ellos
+    y clasificarlos manualmente. Sin embargo si esta tarea se automatiza, el tiempo 
+    y recursos humanos se reducen, agregando valor a la empresa, pues cumplir el objetivo en poco tiempo *(incluso un par de minutos)* 
+    permite tomar decisiones estratégicas rápidamente, basandose en los resultados.  
 
 
     """)
 
     st.write("""
-    Todo lo anterior, es posible gracias al **Procesamiento del Lenguaje Natural** (NLP), un área de Machine Learning que 
+    Todo lo anterior, es posible gracias al **Procesamiento del Lenguaje Natural** (NLP), una rama de Machine Learning que 
     permite a las computadoras comprender el lenguaje humano para agilizar procesos específicos. Para esto, es necesario 
-    transformar la data no estructurada, ya sean textos o mensajes de voz en alguna representación matemática para poder 
-    ejecutar algún algoritmo. Esto se logra extrayendo cada palabra de los documentos en forma de *“tokens”* para luego 
-    crear vectores representando los textos.  
+    transformar la data no estructurada, ya sean textos o mensajes de voz, en representaciones matemáticas que puedan ser 
+    procesadas por algoritmos. Esto se logra extrayendo cada palabra de los documentos en forma de *“tokens”* que luego 
+    se convierten en vectores que representan los textos.  
 
 
     """)
 
     st.write("""
-    Antes de comprender la transformación vectorial de los textos, es importante comprender lo que ocurre con las palabras 
-    en sí. En primer lugar, se puede estudiar su morfología, es decir, la estructura interna que separa las palabras en 
-    unidades más pequeñas (morfema) para comprenderlas desde su raíz. Luego estos términos se “lematizan”, ósea, se dejan 
-    en su forma más pura y válida, por ejemplo, el lema de “tomaste” es “tomar”. Después, estas transforman en expresiones 
-    regulares, es decir, en un conjunto de símbolos que se pueden concatenar, unir y/o repetir para que sean entendidas 
+    Para entender cómo se realiza la transformación vectorial de los textos, primero es importante comprender lo que ocurre con las palabras 
+    en sí. Un enfoque inicial es estudiar su morfología, es decir, la estructura interna que descompone las palabras en 
+    unidades más pequeñas (morfema) para comprenderlas desde su raíz. Luego estos términos se “lematizan”, ósea, se convierten 
+    en su forma más simple y válida, por ejemplo, el lema de “tomaste” es “tomar”. Después, estas se transforman en expresiones 
+    regulares: Un conjunto de símbolos que se pueden concatenar, unir y/o repetir para que sean entendidas 
     por las computadoras como un “lenguaje regular”. Estos caracteres permiten generalizar las palabras 
     *(lenguaje expresiones regulares - referencia rápida: https://learn.microsoft.com/es-es/dotnet/standard/base-types/regular-expression-language-quick-reference).*  
 
@@ -41,9 +43,9 @@ def main():
     """)
 
     st.write(r"""
-    Entendiendo como se preprocesan los términos de los documentos, es posible comprender su representación vectorial. 
+    Entendiendo como se preprocesan los términos de los documentos, se puede comprender como se representa esta información en forma vectorial. 
     Como se mencionó, para que un modelo de Machine Learning pueda ser entrenado es necesario tener la data representada 
-    en forma numérica, pero ¿cómo se pueden transformar textos en números? Primero, se debe considerar que cada 
+    en numéricamente, pero ¿cómo se pueden transformar textos en números? Primero, se debe considerar que cada 
     documento ($d_i$) tiene N palabras ($w_i$) y a partir de los términos únicos se crea el vocabulario ($V_i$) del texto:  
     """)  
 
@@ -59,8 +61,7 @@ def main():
     st.write(r"""
     Ahora, para transformar un documento en forma vectorial, se toman todas sus palabras como se muestra en $d_i$ y 
     se eliminan las *stopwords*, ósea, todos los términos que no son relevante para la comprensión del texto general 
-    (por ejemplo: el, la, un, nos, entre otros) y preprocesar la data hasta que queden en lemas. Luego, se les debe 
-    dar un peso a los términos y para esto, se usa el método **TF x IDF**:  
+    (por ejemplo: el, la, un, nos, entre otros), y se procesan los datos hasta que queden en lemas. Luego, se les asigna un peso a los términos y para esto, se usa el método **TF x IDF**:  
     """)
 
     st.write(f"""
@@ -85,10 +86,10 @@ def main():
         st.write(r"$IDF =log \frac{N}{df(i)}$")
 
     st.write("""
-    Luego, ambos valores se multiplican para así darle un peso representativo a cada término presente en los documentos 
-    respecto al vocabulario total. Esto, permite que los documentos sean representados a través de vectores puedan 
-    compararse entre sí usando la similitud, en donde los documentos que tienen menor distancia en un espacio 
-    multidimensional compuesto por las palabras del vocabulario son los más similares, ósea, los que tengan un valor 
+    Finalmente, al multiplicar ambos valores (TF y IDF), se asigna un peso representativo a cada término presente en los documentos 
+    con respecto al vocabulario total. Esto, permite representar los documentos como vectores, que pueden compararse usando 
+    medidas de similitud. Los documentos cuya distancia en un espacio 
+    multidimensional (compuesto por las palabras del vocabulario) sea menor, son los más similares entre sí, ósea, los que tengan un valor 
     más cercano a 1 son más similares.  
 
 
