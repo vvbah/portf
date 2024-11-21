@@ -12,13 +12,8 @@ import os
 
 pysqldf = lambda q: sqldf(q, globals())
 
-# Obtiene la ruta absoluta del directorio donde está el script principal
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Construye la ruta al archivo de manera relativa
 geojson_path = os.path.join(BASE_DIR, 'permisos.geojson')
-
-# Usa la ruta relativa
 gdf = gpd.read_file(geojson_path)
 
 ####################################################################################################################
@@ -170,8 +165,8 @@ viviendas=pd.read_csv('viviendas.csv')
 censo=pd.read_csv('censo17.csv')
 
 dic('P12',dic_P12)
-df=gpd.read_file(r"C:\Users\vverg\Desktop\portafolio_vale\Untitled Folder\Zones Chile.shp")
-metro=gpd.read_file(r"C:\Users\vverg\Desktop\portafolio_vale\Untitled Folder\Metro.shp")
+df=gpd.read_file(os.path.join(current_dir, 'Untitled Folder', 'Zones Chile.shp'))
+metro=gpd.read_file(os.path.join(current_dir, 'Untitled Folder', 'Metro.shp')
 
 
 eecc=df[df['cod_comuna']=='13106']
