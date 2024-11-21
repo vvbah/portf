@@ -19,7 +19,7 @@ st.set_page_config(page_title="Portafolio Virtual", page_icon=":computer:")
 
 with st.sidebar:
     pagina_actual = option_menu("Menu", ["Sobre Mí", 'Predicción Precio Propiedades',
-                                        'Estudio Estación Central', 'Similitud de Textos'], 
+                                        'Análisis de Datos', 'Similitud de Textos'], 
         icons=['house', 'book','book','book'], default_index=0)
 
 if pagina_actual == "Sobre Mí":
@@ -54,7 +54,7 @@ if pagina_actual == "Sobre Mí":
 
 elif pagina_actual == "Predicción Precio Propiedades":
     proyecto1_main()
-elif pagina_actual == "Estudio Estación Central":
+elif pagina_actual == "Análisis de Datos":
     proyecto2_main()
 elif pagina_actual == "Similitud de Textos":
     proyecto3_main()

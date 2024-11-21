@@ -5,19 +5,18 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 def main():
-    st.set_page_config(page_title="Análisis de Datos", layout="wide")
-
 # Título
     st.title("Análisis Exploratorio de Datos")
 
 #Body
 
     st.write("""
-    Actualmente, los datos son recursos valiosos para la empresas ya que estos pueden ser analizados para encontrar *insights* y
-    tomar decisiones con un respaldo. En esta aplicación, puedes cargar una base de datos (*max 200 mb*) y esta aplicación te ayudará
-    con el análisis exploratorio de datos, detección de datos anormales y pivot tables para resumir data.  
+    En la actualidad, los datos se han convertido en un recurso valioso para las empresas, ya que ofrecen la posibilidad de descubrir 
+    **insights clave** que respaldan la toma de decisiones estratégicas. Esta aplicación te permite cargar tu base de datos (*hasta 200 MB*) 
+    y te entrega herramientas para realizar un análisis exploratorio, detectar datos anormales y crear tablas dinámicas para resumir la 
+    información.    
          
-    Aquí podrás pasar del dato al *insight*.  
+    **Aquí podrás pasar del dato al insight**.  
          
     En el menú de la izquierda puedes cargar tu data y definir el análisis que deseas.
          """)
