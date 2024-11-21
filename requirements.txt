@@ -13,5 +13,4 @@ pyproj==3.6.1
 shapely
 pillow==9.0.0
 sqldf==0.4.2
-
-
+fiona==1.8.20
