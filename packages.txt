@@ -1,3 +1,5 @@
+gdal-bin
+libgdal-dev
 libgeos-dev
 zlib1g-dev
 libjpeg-dev
